@@ -47,11 +47,38 @@ footer {
 
   </style>
 
+    <script>
+        function carregaCard(relacao) {
+            document.getElementById("card_header").innerHTML = relacao;
+            var source;
+            var texto;
+            if (relacao == "Inflação vs desemprego") {
+                source = 'img/infalacao_vs_desemprego.png'; //img/infalacao_vs_desemprego.png
+                texto = 'A curva de Phillips representa uma relação entre inflação e desemprego, que permite analisar a relação entre ambos, no curto prazo.Segundo esta teoria, desenvolvida pelo economista neozelandês William Phillips, uma menor taxa de desemprego leva a um aumento da inflação, e uma maior taxa de desemprego a uma menor inflação.Contudo, esta relação não é válida no longo prazo, uma vez que a taxa de desemprego é basicamente independente da taxa de inflação conforme outras variáveis vão se alterando.'
+            }
+            else if (relacao == "PIB vs desemprego"){
+                source = ''
+                texto = ''
+            }
+            else if (relacao == "Juros vs desemprego") {
+                source = ''
+                texto = ''
+            }
+            else if (relacao == "Inflação vs Juros") {
+                source = ''
+                texto = ''
+            }
+            else if (relacao == "Câmbio vs Inflação") {
+                source = ''
+                texto = ''
+            }
+            document.getElementById("card_img").src = source;
+            document.getElementById("card_text").innerHTML = texto;
+        }
+    </script>
+
   </head>
-
-
-
-  
+ 
 <body>
     <div>
         <nav style="color:blue" class="navbar navbar-dark ">
@@ -77,43 +104,43 @@ footer {
         <div class="row">
             <div class="col align-self-center d-flex justify-content-center">
                 <div class="form-group">
-                    <button class="btn btn-primary">Inflação vs Desemprego</button>
+                    <button class="btn btn-primary" onclick="carregaCard('Inflação vs desemprego');">Inflação vs Desemprego</button>
                 </div>
             </div>
             <div class="col align-self-center d-flex justify-content-center">
                 <div class="form-group">
-                    <button class="btn btn-primary">PIB vs Desemprego</button>
+                    <button class="btn btn-primary" onclick="carregaCard('PIB vs Desemprego');" >PIB vs Desemprego</button>
                 </div>
             </div>
             <div class="col align-self-center d-flex justify-content-center">
                 <div class="form-group">
-                    <button class="btn btn-primary">Juros vs Desemprego</button>
+                    <button class="btn btn-primary" onclick="carregaCard('Juros vs Desemprego');">Juros vs Desemprego</button>
                 </div>
             </div>
             <div class="col align-self-center d-flex justify-content-center">
                 <div class="form-group">
-                    <button class="btn btn-primary">Inflação vs Juros</button>
+                    <button class="btn btn-primary" onclick="carregaCard('Inflação vs Juros');">Inflação vs Juros</button>
                 </div>
             </div>
             <div class="col align-self-center d-flex justify-content-center">
                 <div class="form-group">
-                    <button class="btn btn-primary">Câmbio vs Inflação</button>
+                    <button class="btn btn-primary" onclick="carregaCard('Câmbio vs Inflação');">Câmbio vs Inflação</button>
                 </div>
             </div>
         </div>
         <br />
         <div class="row">
             <div class="card">
-                <div class="card-header">
+                <div id="card_header" class="card-header">
                     Inflação vs desemprego
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-4">
-                            <img src="img/infalacao_vs_desemprego.png" alt="Card image cap" class="img-fluid" >
+                            <img id="card_img" src="" alt="Gráfico da relação" class="img-fluid" >
                         </div>
                         <div class="col">
-                            <p class="card-text">A curva de Phillips representa uma relação entre inflação e desemprego, que permite analisar a relação entre ambos, no curto prazo. Segundo esta teoria, desenvolvida pelo economista neozelandês William Phillips, uma menor taxa de desemprego leva a um aumento da inflação, e uma maior taxa de desemprego a uma menor inflação. Contudo, esta relação não é válida no longo prazo, uma vez que a taxa de desemprego é basicamente independente da taxa de inflação conforme outras variáveis vão se alterando.</p>
+                            <p id="card_text" class="card-text">Selecione uma das relações para vizualizar o gráfico e sua explicação.</p>
                         </div>
                     </div>
                </div>
