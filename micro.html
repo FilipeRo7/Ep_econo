@@ -105,10 +105,11 @@
             [8, null, 10],
             [9, null, 7]
         ];
+        var campos = ["preco_produto", "renda_consumidores", "preco_bens_relacionados", "condicoes_naturais", "politicas_governamentais", "novas_tecnologias", "preco_insumo"];
         google.charts.load('current', { 'packages': ['line'] });
         google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
+        function drawChart() {  //Função responsavel por desenhar o grafico
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'Quantidade');
             data.addColumn('number', 'Demanda');
@@ -121,7 +122,7 @@
                     title: 'Gráfico Micro-Economia'
                 },
                 width: 700,
-                height: 375,
+                height: 400,
                 series: {
                     1: {
                         targetAxisIndex: 1
@@ -129,7 +130,7 @@
                 },
                 vAxes: {
                     0: {
-                        title: 'Preço',
+                        title: 'Variável selecionada',
                     }
                 },
             };
@@ -139,26 +140,80 @@
             chart.draw(data, google.charts.Line.convertOptions(options));
         }
 
-        function alteraDemanda(valorAlteracao) {
+        function alteraDemanda(valorAlteracao, id) { //Funçãio responsavel por alterar a posição da curva de Demanda
             debugger;
+            resetaVariaveis(id);
             for (i = 0; i < 8; i++) {
-                coordenadas[i][0] = coordenadas[i][0] + (valorAlteracao/100)
+                coordenadas[i][0] = coordenadas[i][0] + (valorAlteracao / 100) * 2
             }
+            modificaTextoExplicativo(id);
             drawChart();
         }
-        function alteraOferta(valorAlteracao) {
+        function alteraOferta(valorAlteracao, id) { //Funçãio responsavel por alterar a posição da curva de oferta
             debugger;
+            resetaVariaveis(id);
             for (i = 8; i < 16; i++) {
-                coordenadas[i][0] = coordenadas[i][0] + (valorAlteracao / 100)
+                coordenadas[i][0] = coordenadas[i][0] + (valorAlteracao / 100)*2
             }
+            modificaTextoExplicativo(id);
             drawChart();
+        }
+
+        function resetaVariaveis(id) {  //Função responsavel por resetar todas variaveis exceto a modificada e limpar os valores do gráfico para o valor inicial.
+            for (i = 0; i < campos.length; i++) {
+                if (campos[i] != id) {
+                    document.getElementById(campos[i]).value = 0;
+                }
+            }
+            coordenadas = [
+                [1, 7, null],
+                [2, 10, null],
+                [3, 15, null],
+                [4, 25, null],
+                [5, 40, null],
+                [6, 60, null],
+                [7, 90, null],
+                [8, 130, null],
+                [2, null, 130],
+                [3, null, 90],
+                [4, null, 60],
+                [5, null, 40],
+                [6, null, 25],
+                [7, null, 15],
+                [8, null, 10],
+                [9, null, 7]
+            ];
+        }
+
+        function modificaTextoExplicativo(id) { //Função hard coded para alterar o campo de texto de acordo com o id da variavel alterada
+            var texto;
+            if (id == "preco_produto") {
+                texto = '<b>Explicação da variável "Preço do produto":</b> Um aumento no preço de um determinado produto leva a uma menor demanda por este produto, ou seja, desloca a curva de demanda para a esquerda.Se, ao contrário, houver diminuição no preço, a demanda aumenta e a curva se desloca para a direita.'
+            }
+            else if (id == "renda_consumidores") {
+                texto = '<b>Explicação da variável "Renda dos consumidores":</b> Um aumento na renda dos consumidores leva a uma maior demanda por produtos, ou seja, desloca a curva de demanda para a direita.Se, ao contrário, houver diminuição na renda dos consumidores, a demanda diminui e a curva se desloca para a esquerda.'
+            }
+            else if (id == "preco_bens_relacionados") {
+                texto ='<b>Explicação da variável "Preço de bens relacionados":</b> Uma diminuição no preço de um bem relacionado (“concorrente”), leva a uma menor demanda pelo produto avaliado, deslocando a curva de demanda para a esquerda. Se, ao contrário, o preço de um bem relacionado aumentar, haverá maior demanda pelo produto avaliado e a curva se desloca para a direita.'
+            }
+            else if (id == "condicoes_naturais") {
+                texto = '<b>Explicação da variável "Condições naturais (Matéria prima)":</b> Se houver uma melhora nas condições naturais para a produção de um produto, sua oferta aumenta, deslocando a curva para a direita. Se, ao contrário, houver piora nas condições naturais, a oferta do produto diminuirá, deslocando a curva para a esquerda.'
+            }
+            else if (id == "politicas_governamentais") {
+                texto = '<b>Explicação da variável "Políticas Governamentais (Impostos)":</b> Se houver um aumento dos impostos sobre um produto ou sua produção, o produto se torna mais custoso, o que leva a uma menor oferta desse produto, deslocando a curva de oferta para a esquerda. Se, ao contrário, houver uma diminuição dos impostos, o produto se torna menos custoso, sua oferta aumenta, deslocando a curva para a direita.'
+            }
+            else if (id == "novas_tecnologias") {
+                texto = '<b>Explicação da variável "Novas tecnologias":</b> Uma melhora na tecnologia de produção de um produto faz com que ela seja mais eficiente e menos custosa, o que leva a uma maior oferta desse produto, deslocando a curva para a direita. Se, ao contrário, houver um declínio da tecnologia (o que é bastante incomum), a produção será mais custosa, o que leva a uma menor oferta desse produto, deslocando a curva para a esquerda.'
+            }
+            else if (id == "preco_insumo") {
+                texto = '<b>Explicação da variável "Preço dos insumos":</b> Um aumento no preço dos insumos para a produção de um produto faz com que a oferta desse produto diminua, ou seja, desloca a curva de oferta para a esquerda. Se, ao contrário, o preço dos insumos diminuir, haverá maior oferta desse produto, deslocando a curva de oferta para a direita.'
+            }
+               
+            document.getElementById("texto_explicativo").innerHTML = texto;
         }
 
     </script>
 </head>
-
-
-
 
 <body>
     <div>
@@ -188,84 +243,39 @@
                 <div class="form-group">
                     <div id="linechart_material"></div>
                 </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            Variáveis que influenciam a demanda
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col align-self-center d-flex justify-content-center">
-                                    <div class="slidecontainer">
-                                        <div class="form-group">
-                                            <b>Preço do produto:</b>
-                                            <input onchange="alteraDemanda(this.value * -1);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col align-self-center d-flex justify-content-center">
-                                    <div class="form-group">
-                                        <div class="slidecontainer">
-                                            <b>Renda dos consumidores:</b>
-                                            <input onchange="alteraDemanda(this.value);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col align-self-center d-flex justify-content-center">
-                                    <div class="slidecontainer">
-                                        <div class="form-group">
-                                            <b>Preço de bens relacionados:</b>
-                                            <input onchange="alteraDemanda(this.value);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Variáveis que influenciam a demanda
                     </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            Variáveis que influenciam a oferta
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="slidecontainer">
+                                    <div class="form-group">
+                                        <b>Preço do produto:</b>
+                                        <input id="preco_produto" onchange="alteraDemanda(this.value * -1, this.id);" type="range" min="-100" max="100" value="0" class="slider">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col align-self-center d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="form-group">
                                     <div class="slidecontainer">
-                                        <div class="form-group">
-                                            <b>Preço dos insumos:</b>
-                                            <input onchange="alteraOferta(this.value);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
+                                        <b>Renda dos consumidores:</b>
+                                        <input id="renda_consumidores" onchange="alteraDemanda(this.value, this.id);" type="range" min="-100" max="100" value="0" class="slider">
                                     </div>
-                                    </div>
-                                <div class="col align-self-center d-flex justify-content-center">
-                                    <div class="slidecontainer">
-                                        <div class="form-group">
-                                            <b>Novas tecnologias:</b>
-                                            <input onchange="alteraOferta(this.value);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
-                                    </div>
-                                    </div>
-                                <div class="col align-self-center d-flex justify-content-center">
-                                    <div class="slidecontainer">
-                                        <div class="form-group">
-                                            <b>Políticas Governamentais (Impostos):<p></p></b>
-                                            <input onchange="alteraOferta(this.value);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
-                                    </div>
-                                    </div>
-                                <div class="col align-self-center d-flex justify-content-center">
-                                    <div class="slidecontainer">
-                                        <div class="form-group">
-                                            <b>Condições naturais (Matéria prima):<p></p></b>
-                                            <input onchange="alteraOferta(this.value);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="slidecontainer">
+                                    <div class="form-group">
+                                        <b>Preço de bens relacionados:</b>
+                                        <input id="preco_bens_relacionados" onchange="alteraDemanda(this.value, this.id);" type="range" min="-100" max="100" value="0" class="slider" id="myRange">
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +284,69 @@
                 </div>
             </div>
 
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Variáveis que influenciam a oferta
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="slidecontainer">
+                                    <div class="form-group">
+                                        <b>Preço dos insumos:</b>
+                                        <input id="preco_insumo" onchange="alteraOferta(this.value, this.id);" type="range" min="-100" max="100" value="0" class="slider">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="slidecontainer">
+                                    <div class="form-group">
+                                        <b>Novas tecnologias:</b>
+                                        <input id="novas_tecnologias" onchange="alteraOferta(this.value, this.id);" type="range" min="-100" max="100" value="0" class="slider">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="slidecontainer">
+                                    <div class="form-group">
+                                        <b>Políticas Governamentais (Impostos):<p></p></b>
+                                        <input id="politicas_governamentais" onchange="alteraOferta(this.value, this.id);" type="range" min="-100" max="100" value="0" class="slider">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col align-self-center d-flex justify-content-center">
+                                <div class="slidecontainer">
+                                    <div class="form-group">
+                                        <b>Condições naturais (Matéria prima):<p></p></b>
+                                        <input id="condicoes_naturais" onchange="alteraOferta(this.value, this.id);" type="range" min="-100" max="100" value="0" class="slider">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <br />
+        <div class="row">
+            <div class="col">
+                <div id="texto_explicativo" class="alert alert-warning" role="alert">
+                    <b>Explicação da variável:</b>
+                    Altere uma das variáveis para ver sua definição.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="alert alert-info" role="alert">
+                        Uma curva de demanda ou uma curva de oferta é uma relação entre duas, e apenas duas, variáveis: quantidade no eixo horizontal e variável no eixo vertical. A premissa por trás da curva de demanda ou da curva de oferta é que nenhum outro fator econômico relevante está mudando. Os economistas chamam essa suposição de ceteris paribus, uma frase em latim que significa “tudo o mais mantido constante”.
+                        Portanto quando uma nova variável é selecionada a variável anterior retorna ao ponto original.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
