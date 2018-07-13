@@ -52,25 +52,26 @@ footer {
             document.getElementById("card_header").innerHTML = relacao;
             var source;
             var texto;
-            if (relacao == "Inflação vs desemprego") {
-                source = 'img/infalacao_vs_desemprego.png'; //img/infalacao_vs_desemprego.png
+            if (relacao == "Inflação vs Desemprego") {
+                source = 'img/inflacao_vs_desemprego.png'; //img/infalacao_vs_desemprego.png
                 texto = 'A curva de Phillips representa uma relação entre inflação e desemprego, que permite analisar a relação entre ambos, no curto prazo.Segundo esta teoria, desenvolvida pelo economista neozelandês William Phillips, uma menor taxa de desemprego leva a um aumento da inflação, e uma maior taxa de desemprego a uma menor inflação.Contudo, esta relação não é válida no longo prazo, uma vez que a taxa de desemprego é basicamente independente da taxa de inflação conforme outras variáveis vão se alterando.'
             }
-            else if (relacao == "PIB vs desemprego"){
-                source = ''
-                texto = ''
+            else if (relacao == "PIB vs Desemprego"){
+                source = 'img/pib_vs_desemprego.svg'
+                texto = 'A Lei de Okun é uma teoria que propõe uma relação inversa entre desemprego e produto interno bruto. A teoria foi desenvolvida pelo economista Arthur Okun, em 1962, quando este trabalhava no Comitê de Conselheiros Econômicos do presidente americano John Kennedy. Ela mostra que o hiato do produto é proporcional à diferença entre a taxa de desemprego e a taxa natural de desemprego. A Lei de Okun é só a observação de uma regularidade empírica (do mundo real) que não se baseia em nenhum raciocínio econômico forte.Contudo, tem sobrevivido ao longo do tempo.James Tobin, que foi companheiro de Okun em Yale e no Conselho de Assessores econômicos do presidente Kennedy, qualificou a Lei como "uma das regularidades empíricas mais confiáveis da macroeconomia".'
             }
-            else if (relacao == "Juros vs desemprego") {
-                source = ''
-                texto = ''
+            else if (relacao == "Juros vs Desemprego") {
+                source = 'img/juros_vs_desemprego.png'
+                texto = 'Quanto maior a taxa de juros real, maior a taxa de desemprego e menor a taxa de inflação dos serviços, e vice-versa. No Brasil, quem controla a taxa de juros básica é o Banco Central. Quando há aumento da taxa básica de juros, aumenta-se, consequentemente, todas as outras taxas (cartão de crédito, o cheque especial, o crédito pessoal), causando retração do consumo. O último efeito é o desemprego, causado pela retração econômica.'
             }
             else if (relacao == "Inflação vs Juros") {
-                source = ''
-                texto = ''
+                source = 'img/inflacao_vs_juros.png'
+                texto = 'Quanto maior a taxa de juros real, menor a taxa de inflação dos serviços, e vice-versa. No Brasil, quem controla a taxa de juros básica é o Banco Central, por meio da Selic. Assim, caso o BC observe que a inflação corre o risco de superar a meta, a tendência é elevar os juros. A taxa de juros foi o instrumento escolhido pelo governo, pois ela determina o nível de consumo do país, já que a taxa Selic é utilizada nas transações bancárias e, portanto, influencia os juros de todas as operações na economia. Caso os juros do país estejam altos, o consumidor tende a comprar menos, porque a prestação de seu financiamento vai ser mais alta.Isso reflete na queda da inflação.'
             }
             else if (relacao == "Câmbio vs Inflação") {
-                source = ''
-                texto = ''
+                source = 'img/cambio_vs_inflacao.png'
+                texto = 'De modo geral, como nossa economia é muito sensível à variação do dólar, quando há um aumento (valorização) da moeda americana, há um aumento da inflação no Brasil.  Podemos dizer que uma variação cambial surtirá efeitos de forma mais lenta e em menor grau internamente; isto é, a alteração nos preços dos alimentos de uma cesta-básica ou do transporte público serão percebidos a longo prazo e em menor escala, diferentemente do que ocorre na indústria, em que muitos componentes são importados e a alteração nos preços fica muito mais evidente.'
+                texto = texto + ' Tomemos como exemplo o mercado de automóveis: se houver uma nova depreciação cambial (ou seja, dólar subindo), os carros importados ou os que possuem muitos componentes importados ficarão ainda mais caros, o que elevará a demanda por carros nacionais.Por sua vez, este aumento na procura por carros nacionais deverá pressionar o aumento do  preço destes bens, obedecendo a Leia da Oferta e da Procura.'
             }
             document.getElementById("card_img").src = source;
             document.getElementById("card_text").innerHTML = texto;
@@ -82,7 +83,7 @@ footer {
 <body>
     <div>
         <nav style="color:blue" class="navbar navbar-dark ">
-            <a class="navbar-brand" href="#">Macroeconomia</a>
+            <a class="navbar-brand" href="home.html">Macroeconomia</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -104,7 +105,7 @@ footer {
         <div class="row">
             <div class="col align-self-center d-flex justify-content-center">
                 <div class="form-group">
-                    <button class="btn btn-primary" onclick="carregaCard('Inflação vs desemprego');">Inflação vs Desemprego</button>
+                    <button class="btn btn-primary" onclick="carregaCard('Inflação vs Desemprego');">Inflação vs Desemprego</button>
                 </div>
             </div>
             <div class="col align-self-center d-flex justify-content-center">
@@ -132,15 +133,15 @@ footer {
         <div class="row">
             <div class="card">
                 <div id="card_header" class="card-header">
-                    Inflação vs desemprego
+                    Macroeconomia
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <img id="card_img" src="" alt="Gráfico da relação" class="img-fluid" >
+                        <div class="col-sm-5">
+                            <img id="card_img" src="img/Macroeconomia.jpg" alt="Gráfico da relação" class="img-fluid" style="min-width: 300px; max-height:400px" >
                         </div>
                         <div class="col">
-                            <p id="card_text" class="card-text">Selecione uma das relações para vizualizar o gráfico e sua explicação.</p>
+                            <p id="card_text" class="card-text">Selecione uma das relações para vizualizar o gráfico e sua explicação teórica.</p>
                         </div>
                     </div>
                </div>
